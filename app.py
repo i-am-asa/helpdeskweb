@@ -27,8 +27,8 @@ login_manager.init_app(app)
 conn = psycopg2.connect(
     dbname='onlinehelpdesk',
     user='postgres',
-    password='admin',
-    host='localhost',
+    password='admindata',
+    host='database-2.cpqq4g4i2zk6.us-east-2.rds.amazonaws.com',
     port='5432'
 )
 
