@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Raise a New Ticket</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles.css">
+    <link rel="stylesheet" type="text/css" href="/static/form.css">
+    <link rel="stylesheet" href="/static/chat_widget.css">
+</head>
+
+<body>
+    <!-- Include the navbar -->
+    {% include 'navbar.html' %}
+
+    <div class="form-container">
+        <h2>Raise a New Ticket</h2>
+        <form action="/submit_ticket" method="POST">
+            <div class="form-group">
+                <label for="issue_type">Issue Type:</label>
+                <select id="issue_type" name="issue_type" required>
+                    <option value="" disabled selected>Select an issue type</option>
+                    <!-- Options will be populated dynamically from the database -->
+                    {% for issue in issues %}
+                        <option value="{{ issue[0] }}">{{ issue[0] }}</option>
+                    {% endfor %}
+                </select>
+                
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea id="description" name="description" rows="4" maxlength="300" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="severity">Severity:</label>
+                <select id="severity" name="severity" required>
+                    <option value="" disabled selected>severity level</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+
+            <input type="submit" value="Submit Ticket">
+        </form>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            {% with messages = get_flashed_messages(with_categories=True) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    alert('{{ message }}');
+                {% endfor %}
+            {% endif %}
+            {% endwith %}
+        });
+    </script>
+    
+</body>
+
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Department Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+    <style>
+        /* Custom CSS */
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 200%;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th, .table td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+            vertical-align: top; /* Align cell content to the top */
+        }
+
+        .table th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+
+        .description-container {
+            max-width: 300px;
+            overflow: auto;
+            max-height: 100px;
+        }
+
+        .table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        .table tr:hover {
+            background-color: #e2e6ea;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6">
+                <h1 class="mb-4">Department Dashboard - {{ department }}</h1>
+            </div>
+            <div class="col-md-6 text-right">
+                <!-- Include this button wherever you want in your admin dashboard template -->
+                <form action="{{ url_for('logout_dept') }}" method="GET">
+                    <button type="submit" class="btn btn-primary">Logout</button>
+                </form>
+            </div>
+        </div>
+        
+
+        <div class="table-responsive">
+            <table id="tickets-table" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Ticket ID</th>
+                        <th>User Full Name</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Priority</th>
+                        <th>Status</th>
+                        <th>Raised Time</th>
+                        <th>Assigned Time</th>
+                        <th>Resolve Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ticket in tickets %}
+                    <tr>
+                        <td>{{ ticket[0] }}</td>
+                        <td>{{ ticket[1] }}</td>
+                        <td>{{ ticket[2] }}</td>
+                        <td>
+                            <div class="description-container">
+                                {{ ticket[3] }}
+                            </div>
+                        </td>
+                        <td>{{ ticket[4] }}</td>
+                        <td>
+                            <form action="{{ url_for('change_status_department', ticket_id=ticket[0]) }}" method="post">
+                                <select name="status" class="form-control">
+                                    <option value="Pending" {% if ticket[5] == 'Pending' %} selected {% endif %}>Pending</option>
+                                    <option value="Assigned" {% if ticket[5] == 'Assigned' %} selected {% endif %}>Assigned</option>
+                                    <option value="Resolved" {% if ticket[5] == 'Resolved' %} selected {% endif %}>Resolved</option>
+                                </select>
+                                <button type="submit" class="btn btn-primary btn-sm mt-1">Update</button>
+                            </form>
+                        </td>
+                        
+                        <td>{{ ticket[6] }}</td>
+                        <td>{{ ticket[7] }}</td>
+                        <td>{{ ticket[8] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS (optional, if you need to use Bootstrap components) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- DataTables JS -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+    <!-- DataTables initialization -->
+    <script>
+        $(document).ready(function() {
+            $('#tickets-table').DataTable({
+                "paging": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "responsive": true,
+                "lengthChange": true,
+                "autoWidth": false,
+                "columnDefs": [
+                    { "targets": [1, 2, 3, 4, 5, 6, 7, 8], "searchable": false }
+                ],
+                "order": [[0, 'asc']]
+            });
+        });
+    </script>
+</body>
+</html>

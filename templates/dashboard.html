@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>User Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="static/dashboard.css">
+  
+
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <h1>Welcome, {{ current_user.full_name }}</h1> <!-- Display the user's full name -->
+        
+        <div class="options">
+            <!-- Option to raise a ticket -->
+            <a href="/raise_ticket" class="button">Raise a Ticket</a>
+
+            <!-- Option to view previous tickets -->
+            <a href="/view_tickets" class="button">View Previous Tickets</a>
+
+            <!-- Option for FAQs -->
+            <a href="/faqs" class="button">FAQs</a>
+
+            <!-- Option to logout -->
+            
+            <a href="/logout" class="button logout-button">Logout</a>
+
+        </div>
+
+            <!-- Chat widget container -->
+     
+
+    </div>
+
+    <!-- Include the chat widget JavaScript file -->
+    <script src="static/chat-widget.js" defer></script>
+</body>
+
+</html>

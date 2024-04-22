@@ -1,0 +1,69 @@
+/* General styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+/* Dashboard container */
+.dashboard-container {
+    text-align: center;
+    padding: 50px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin: 50px auto;
+    width: 80%;
+}
+
+/* Dashboard title */
+h1 {
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+/* Options container */
+.options {
+    display: flex;
+    flex-direction: column;  /* Change to column to align buttons vertically */
+    align-items: center;  /* Center the buttons */
+    gap: 10px;  /* Add gap between buttons */
+    margin-top: 20px;
+}
+
+/* Buttons */
+.button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #ffffff;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    width: 20%;  /* Adjust width of buttons */
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+.button:hover {
+    background-color: #0056b3;
+    transform: scale(1.2) rotateX(0deg) rotateY(00deg); /* Increase size and rotate for 3D effect */
+    
+}
+
+/* Logout button with different color */
+.logout-button {
+    background-color: #dc3545;
+}
+
+.logout-button:hover {
+    background-color: #b21f2d;
+}
+/* Chat widget container */
+
+
+/* Additional styles for the chat content area can be added as needed */
+/* For example, styles for chat messages, text inputs, etc. */

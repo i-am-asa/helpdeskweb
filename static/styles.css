@@ -1,0 +1,147 @@
+/* General styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+/* Login container */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Login form */
+.login-form {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+}
+
+/* Login title */
+.login-title {
+    margin-bottom: 20px;
+    color: #333333;
+    font-weight: bold;
+}
+
+/* Form groups */
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+/* Form labels */
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #555555;
+    font-size: 14px;
+}
+
+/* Form inputs */
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+}
+
+/* Login button */
+.login-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.login-button:hover {
+    background-color: #0056b3;
+}
+
+/* Flash messages */
+.flash-messages {
+    margin-bottom: 10px;
+}
+
+.flash-message {
+    color: red;
+    font-size: 14px;
+}
+/* Logo styling */
+.logo {
+    display: block;
+    margin: 0 auto 20px;
+    max-width: 250px; /* Adjust the size as needed */
+}
+
+/* ADMIN DASHBOARD */
+.container {
+    padding: 20px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.actions select,
+.actions button {
+    margin-right: 10px;
+    padding: 8px;
+}
+
+#ticket-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#ticket-table th,
+#ticket-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+#ticket-table th {
+    background-color: #f4f4f4;
+}
+
+.actions button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.actions button:hover {
+    background-color: #0056b3;
+}
+
+button.delete-button {
+    background-color: red;
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    cursor: pointer;
+}
+
+button.delete-button:hover {
+    background-color: darkred;
+}
