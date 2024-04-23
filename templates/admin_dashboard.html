@@ -64,6 +64,8 @@
                     <h1 class="mb-4">Admin Dashboard</h1>
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <a href="{{ url_for('signup') }}" class="btn btn-primary mr-3">Create New User</a>
+                        <!-- Button to open the visualization page -->
+                        <a href="{{ url_for('visualize') }}" class="btn btn-primary mr-3">Stats</a>
                         <!-- Include this button wherever you want in your admin dashboard template -->
                         <form action="{{ url_for('logout_dept') }}" method="GET">
                             <button type="submit" class="btn btn-primary">Logout</button>
@@ -72,6 +74,8 @@
                 </div>
             </div>
         </div>
+        
+        
         
         
 
@@ -98,7 +102,7 @@
                         <th>Title</th>
                         <th>Description</th>
                         <th>Priority</th>
-                        <th>Status</th>
+                        <th style="width: 100px">Status</th>
                         <th>Raised Time</th>
                         <th>Department</th>
                         <th>Assigned Time</th>

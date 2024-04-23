@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizations</title>
+    <!-- Include Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Visualizations</h1>
+
+    <h2>Pending vs Assigned vs Resolved Tickets</h2>
+    <canvas id="statusChart"></canvas>
+
+    <h2>Department-wise Ticket Distribution</h2>
+    <canvas id="departmentChart"></canvas>
+
+    <script>
+        // Function to render Pending vs Assigned vs Resolved Tickets chart
+        function renderStatusChart(pending_count, assigned_count, resolved_count) {
+            const statusChartCtx = document.getElementById('statusChart').getContext('2d');
+            new Chart(statusChartCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Pending', 'Assigned', 'Resolved'],
+                    datasets: [{
+                        label: 'Ticket Count',
+                        data: [pending_count, assigned_count, resolved_count],
+                        backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',   // Light red
+                        'rgba(54, 162, 235, 0.2)',    // Light blue
+                        'rgba(75, 192, 192, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(75, 192, 192, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    
+                    aspectRatio: 3, // Adjust the aspect ratio as needed
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        // Function to render Department-wise Ticket Distribution chart
+        function renderDepartmentChart(department_data) {
+            const departmentChartCtx = document.getElementById('departmentChart').getContext('2d');
+            new Chart(departmentChartCtx, {
+                type: 'pie',
+                data: {
+                    labels: department_data.map(data => data[0]), // Extracting department names from the data
+                    datasets: [{
+                        label: 'Ticket Count',
+                        data: department_data.map(data => data[1]), // Extracting ticket counts from the data
+                        backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)', // Red with opacity
+                        'rgba(54, 162, 235, 0.2)',  // Blue with opacity
+                        'rgba(255, 206, 86, 0.2)',  // Yellow with opacity
+                        'rgba(75, 192, 192, 0.2)',  // Teal with opacity
+                        'rgba(153, 102, 255, 0.2)', // Purple with opacity
+                        'rgba(255, 159, 64, 0.2)'   // Orange with opacity
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',   // Red
+                        'rgba(54, 162, 235, 1)',   // Blue
+                        'rgba(255, 206, 86, 1)',   // Yellow
+                        'rgba(75, 192, 192, 1)',   // Teal
+                        'rgba(153, 102, 255, 1)',  // Purple
+                        'rgba(255, 159, 64, 1)'    // Orange
+                    ],                    
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    aspectRatio: 3,
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    var label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    var total = context.dataset.data.reduce((acc, val) => acc + val, 0);
+                    var percentage = Math.round(context.parsed / total * 100);
+                    label += percentage + '%';
+                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+                
+            });
+        }
+
+        // Call the functions to render visualizations when the page loads
+        renderStatusChart({{ pending_count }}, {{ assigned_count }}, {{ resolved_count }});
+        renderDepartmentChart({{ department_data | tojson }});
+    </script>
+</body>
+</html>

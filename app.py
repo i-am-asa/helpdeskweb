@@ -27,8 +27,8 @@ login_manager.init_app(app)
 conn = psycopg2.connect(
     dbname='onlinehelpdesk',
     user='postgres',
-    password='admin',
-    host='localhost',
+    password='admindata',
+    host='database-2.cpqq4g4i2zk6.us-east-2.rds.amazonaws.com',
     port='5432'
 )
 
@@ -486,7 +486,38 @@ def department_dashboard():
 
     return render_template('department_dashboard.html', department=department, tickets=tickets)
 
+@app.route('/visualize')
+def visualize():
+    # Fetch data for pending vs assigned vs resolved visualization
+    pending_count = get_ticket_count_by_status('Pending')
+    assigned_count = get_ticket_count_by_status('Assigned')
+    resolved_count = get_ticket_count_by_status('Resolved')
+
+    # Fetch data for department wise ticket distribution visualization
+    department_data = get_ticket_count_by_department()
+
+    return render_template('visualize.html', pending_count=pending_count,
+                           assigned_count=assigned_count, resolved_count=resolved_count,
+                           department_data=department_data)
+
+def get_ticket_count_by_status(status):
+    cur = conn.cursor()
+    cur.execute("SELECT COUNT(*) FROM tickets WHERE status = %s", (status,))
+    count = cur.fetchone()[0]
+    cur.close()
+    return count
+
+def get_ticket_count_by_department():
+    cur = conn.cursor()
+    cur.execute("""SELECT department, COUNT(*) 
+FROM tickets 
+WHERE department IS NOT NULL AND department != ''
+GROUP BY department
+""")
+    department_data = cur.fetchall()
+    cur.close()
+    return department_data
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0')
